@@ -157,7 +157,7 @@ class PaymentProcessor(PaymentProcessorBase):
     BACKEND = 'getpaid.backends.webpay'
     BACKEND_NAME = _('Webpay backend')
     BACKEND_ACCEPTED_CURRENCY = ('CLP', 'USD')
-    TESTING_COMMERCE_IDS = {'CLP': '597026007976',
+    TESTING_COMMERCE_IDS = {'CLP': '597020000501',
                             'USD': '597026007984'}
     TBK_PARAM_TXT = TBK_PARAM_TXT
     TBK_TRACE_DAT = TBK_TRACE_DAT
