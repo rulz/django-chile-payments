@@ -54,7 +54,8 @@ class PaymentMethodForm(forms.Form):
             widget=PaymentRadioSelect,
         )
 
-    order = ModelChoiceField(widget=HiddenInput, queryset=Order.objects.all())
+    #order = ModelChoiceField(widget=HiddenInput, queryset=Order.objects.all())
+    order = ModelChoiceField(queryset=Order.objects.all())
 
     def clean_order(self):
         if hasattr(self.cleaned_data['order'], 'is_ready_for_payment'):

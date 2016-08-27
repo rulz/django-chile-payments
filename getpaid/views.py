@@ -11,10 +11,17 @@ from getpaid.forms import PaymentMethodForm
 from getpaid.models import Payment
 from getpaid.signals import redirecting_to_payment_gateway_signal
 
+from django.views.decorators.csrf import csrf_exempt
+from django.utils.decorators import method_decorator
+
 
 class NewPaymentView(FormView):
     form_class = PaymentMethodForm
     template_name = "getpaid/payment_post_form.html"
+
+    @method_decorator(csrf_exempt)
+    def dispatch(self, request, *args, **kwargs):
+        return super(NewPaymentView, self).dispatch(request, *args, **kwargs)
 
     def get_form(self, form_class):
         self.currency = self.kwargs['currency']
@@ -32,7 +39,6 @@ class NewPaymentView(FormView):
         gateway_url_tuple = processor.get_gateway_url(self.request)
         payment.change_status('in_progress')
         redirecting_to_payment_gateway_signal.send(sender=None, request=self.request, order=form.cleaned_data['order'], payment=payment, backend=form.cleaned_data['backend'])
-
         if gateway_url_tuple[1].upper() == 'GET':
             return HttpResponseRedirect(gateway_url_tuple[0])
         elif gateway_url_tuple[1].upper() == 'POST':
