@@ -20,11 +20,11 @@ class NewPaymentView(FormView):
         self.currency = self.kwargs['currency']
         return form_class(self.currency, **self.get_form_kwargs())
 
-    def get(self, request, *args, **kwargs):
-        """
-        This view operates only on POST requests from order view where you select payment method
-        """
-        raise Http404
+    # def get(self, request, *args, **kwargs):
+    #     """
+    #     This view operates only on POST requests from order view where you select payment method
+    #     """
+    #     raise Http404
 
     def form_valid(self, form):
         payment = Payment.create(form.cleaned_data['order'], form.cleaned_data['backend'])
