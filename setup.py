@@ -12,7 +12,7 @@ except ImportError:
 
 setup(
     name='django-chile-payments',
-    version='0.2.2',
+    version='0.2.3',
     description='Chilean payment brokers for Django',
     long_description=read_md('README.md'),
     packages=find_packages(),
